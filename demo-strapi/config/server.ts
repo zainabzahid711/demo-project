@@ -1,7 +1,11 @@
-export default ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
-  port: env.int('PORT', 1337),
+export default ({
+  env,
+}: {
+  env: (key: string, defaultValue?: string) => string;
+}) => ({
+  host: env("HOST", "0.0.0.0"),
+  port: parseInt(env("PORT", "1337"), 10), // Use parseInt for int conversion
   app: {
-    keys: env.array('APP_KEYS'),
+    keys: env("APP_KEYS", "").split(","), // Assuming APP_KEYS is a comma-separated string
   },
 });
