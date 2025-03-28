@@ -30,6 +30,13 @@ const defaultFeatures: Feature[] = [
     description: "Advanced security features.",
   },
 ];
+interface ApiFeature {
+  id: number;
+  attributes: {
+    title: string;
+    description: string;
+  };
+}
 
 const FeaturesSection: React.FC = () => {
   const [features, setFeatures] = useState<Feature[]>(defaultFeatures);
@@ -42,7 +49,7 @@ const FeaturesSection: React.FC = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data?.data) {
-          const formattedFeatures = data.data.map((item: any) => ({
+          const formattedFeatures = data.data.map((item: ApiFeature) => ({
             id: item.id,
             title: item.attributes.title,
             description: item.attributes.description,
