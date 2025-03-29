@@ -45,20 +45,25 @@ const FeaturesSection: React.FC = () => {
   );
 
   useEffect(() => {
-    fetch("http://localhost:1337/api/features")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.data) {
-          const formattedFeatures = data.data.map((item: ApiFeature) => ({
-            id: item.id,
-            title: item.attributes.title,
-            description: item.attributes.description,
-          }));
-          setFeatures(formattedFeatures);
-          setSelectedFeature(formattedFeatures[0]?.id || defaultFeatures[0].id);
-        }
+    fetch("https://wilful-juditha-tilde-2e2e9688.koyeb.app/api/features")
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
       })
-      .catch((err) => console.error("Error fetching features:", err));
+      .then((data) => {
+        if (!data?.data) throw new Error("No data received");
+        const formattedFeatures = data.data.map((item: ApiFeature) => ({
+          id: item.id,
+          title: item.attributes.title,
+          description: item.attributes.description,
+        }));
+        setFeatures(formattedFeatures);
+        setSelectedFeature(formattedFeatures[0]?.id || defaultFeatures[0].id);
+      })
+      .catch((err) => {
+        console.error("Fetch failed:", err);
+        // Optionally show error to user
+      });
   }, []);
 
   return (
