@@ -11,25 +11,25 @@ interface Feature {
 }
 
 // Default static features (fallback)
-const defaultFeatures: Feature[] = [
-  {
-    id: 1,
-    title: "Industry Experts",
-    description: "Lorem ipsum dolor sit amet consectetur.",
-  },
-  { id: 2, title: "Dedicated Team", description: "Ea recusandae nesciunt." },
-  { id: 3, title: "Outcome Focused", description: "Molitia quidem explicabo." },
-  {
-    id: 4,
-    title: "High Quality Service",
-    description: "Providing excellent services.",
-  },
-  {
-    id: 5,
-    title: "Cyber Security Expert",
-    description: "Advanced security features.",
-  },
-];
+// const defaultFeatures: Feature[] = [
+//   {
+//     id: 1,
+//     title: "Industry Experts",
+//     description: "Lorem ipsum dolor sit amet consectetur.",
+//   },
+//   { id: 2, title: "Dedicated Team", description: "Ea recusandae nesciunt." },
+//   { id: 3, title: "Outcome Focused", description: "Molitia quidem explicabo." },
+//   {
+//     id: 4,
+//     title: "High Quality Service",
+//     description: "Providing excellent services.",
+//   },
+//   {
+//     id: 5,
+//     title: "Cyber Security Expert",
+//     description: "Advanced security features.",
+//   },
+// ];
 interface ApiFeature {
   id: number;
   attributes: {
@@ -39,12 +39,11 @@ interface ApiFeature {
 }
 
 const FeaturesSection: React.FC = () => {
-  const [features, setFeatures] = useState<Feature[]>(defaultFeatures);
-  const [selectedFeature, setSelectedFeature] = useState<number>(
-    defaultFeatures[0].id
-  );
+  const [features, setFeatures] = useState<Feature[]>([]);
+  const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
 
   useEffect(() => {
+    console.log("Current features:", features);
     fetch("https://wilful-juditha-tilde-2e2e9688.koyeb.app/api/features")
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -58,13 +57,16 @@ const FeaturesSection: React.FC = () => {
           description: item.attributes.description,
         }));
         setFeatures(formattedFeatures);
-        setSelectedFeature(formattedFeatures[0]?.id || defaultFeatures[0].id);
+        setSelectedFeature(formattedFeatures[0]?.id);
       })
       .catch((err) => {
         console.error("Fetch failed:", err);
         // Optionally show error to user
       });
   }, []);
+
+  // Add loading state
+  if (features.length === 0) return <div>Loading features...</div>;
 
   return (
     <div className="text-center mb-8 flex flex-col gap-2">
@@ -93,7 +95,6 @@ const FeaturesSection: React.FC = () => {
               }
             </p>
           </div>
-
           {/* Display Image */}
           <Image
             src={whyChoose}
