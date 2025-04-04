@@ -1,4 +1,4 @@
-import FeaturesList from "./components/featureList";
+import LoginPage from "./login/login";
 
 export default function Home() {
   return (
@@ -8,7 +8,8 @@ export default function Home() {
       <p className="text-center text-gray-500 my-4">
         We are different from others. Here is why:
       </p> */}
-        <FeaturesList />
+        <h1>helo zainab you have to complete it</h1>
+        <LoginPage />
       </main>
     </div>
   );
