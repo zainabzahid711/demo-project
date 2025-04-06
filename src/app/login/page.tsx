@@ -1,16 +1,59 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isApiAvailable, setIsApiAvailable] = useState(false);
+
+  // Check if the backend API is available when the component mounts
+  useEffect(() => {
+    const checkApiStatus = async () => {
+      try {
+        const res = await fetch("http://localhost:1337/api/users");
+        if (res.ok) {
+          setIsApiAvailable(true);
+        } else {
+          setIsApiAvailable(false);
+        }
+      } catch (err) {
+        console.error("API check error", err);
+        setIsApiAvailable(false);
+      }
+    };
+
+    checkApiStatus();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Logging in with:", email, password);
-    // TODO: Connect with backend
+    console.log("logging up with:", email, password);
+
+    // Send signup data to the backend (replace this with the actual signup API endpoint)
+    const response = await fetch("http://localhost:1337/api/auth/local", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        identifier: "superuniqueuser",
+        password: "test123",
+      }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+
+      localStorage.setItem("jwt", data.jwt);
+      console.log("login successful:", data);
+      // Handle successful signup (e.g., redirect user, show success message)
+    } else {
+      const errorData = await response.json();
+      console.error("login failed:", errorData);
+      // Handle signup failure (e.g., show error message)
+    }
   };
 
   return (
@@ -32,10 +75,10 @@ const LoginPage = () => {
           {/* Email - Identical to Signup */}
           <div>
             <label className="block text-sm sm:text-base font-medium text-neutral-700 mb-2">
-              Email
+              username or Email
             </label>
             <input
-              type="email"
+              type="text"
               placeholder="example@email.com"
               className="w-full px-4 py-3 sm:py-4 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-base"
               value={email}
@@ -78,6 +121,11 @@ const LoginPage = () => {
             Sign up
           </Link>
         </div>
+        {!isApiAvailable && (
+          <p className="text-center text-red-500 mt-4">
+            API is not available. Please try again later.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -1,16 +1,78 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 const SignupPage = () => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isApiAvailable, setIsApiAvailable] = useState(false);
+
+  useEffect(() => {
+    const checkApiStatus = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:1337/api/users"
+          // {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify({
+          //     username: "newuser",
+          //     email: "email@site.com",
+          //     password: "test123",
+          //   }),
+          // }
+        );
+        if (response.ok) {
+          console.log("registered successfully");
+          setIsApiAvailable(true);
+        } else {
+          const errorData = await response.json();
+          console.log("registration failed", errorData);
+          setIsApiAvailable(false);
+        }
+      } catch (error) {
+        console.error("Error connecting to API:", error);
+        setIsApiAvailable(false);
+      }
+    };
+    checkApiStatus();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Signing up with:", email, password);
-    // TODO: Connect with backend
+    console.log("signing in with:", email, password);
+
+    // Send login data to the backend
+    const response = await fetch(
+      "http://localhost:1337/api/auth/local/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          password: password,
+        }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+
+      localStorage.setItem("jwt", data.jwt);
+      console.log("signup successful:", data);
+      // Handle successful login (e.g., store token, redirect user)
+    } else {
+      const errorData = await response.json();
+      console.error("signup failed:", errorData);
+      // Handle login failure (e.g., show error message)
+    }
   };
 
   return (
@@ -29,6 +91,19 @@ const SignupPage = () => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm sm:text-base font-medium text-neutral-700 mb-2">
+              Username
+            </label>
+            <input
+              type="text"
+              placeholder="jhon doe"
+              className="w-full px-4 py-3 sm:py-4 rounded-lg border border-neutral-300 focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all text-base"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
           {/* Email */}
           <div>
             <label className="block text-sm sm:text-base font-medium text-neutral-700 mb-2">
@@ -78,6 +153,11 @@ const SignupPage = () => {
             Log in
           </Link>
         </div>
+        {!isApiAvailable && (
+          <p className="text-center text-red-500 mt-4">
+            API is not available. Please try again later.
+          </p>
+        )}
       </div>
     </div>
   );
