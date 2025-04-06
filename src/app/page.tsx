@@ -28,7 +28,7 @@ export default function Home() {
               href="/signup"
               className="px-6 py-3 bg-teal-700 hover:bg-teal-800 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg"
             >
-              Get Started - It's Free
+              Get Started - It&apos;s Free
             </Link>
             <Link
               href="/login"

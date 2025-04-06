@@ -113,7 +113,7 @@ const LoginPage = () => {
 
         {/* Footer - Reversed CTA to point to Signup */}
         <div className="mt-8 text-center text-sm sm:text-base text-neutral-500">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href="/signup"
             className="font-medium text-teal-700 hover:underline"
