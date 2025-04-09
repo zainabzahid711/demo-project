@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type ApiStatus = "checking" | "available" | "unavailable";
 type FormErrors = {
@@ -13,6 +14,7 @@ type FormErrors = {
 };
 
 const SignupPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -132,7 +134,7 @@ const SignupPage = () => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("jwt", data.jwt);
-        console.log("Signup successful:", data);
+        router.push("/dashboard");
         // Redirect or show success message
       } else {
         throw new Error(

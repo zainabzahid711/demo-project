@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type ApiStatus = "checking" | "available" | "unavailable";
 
 const LoginPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [status, setStatus] = useState({
     loading: false,
@@ -34,6 +36,12 @@ const LoginPage = () => {
     e.preventDefault();
     setStatus((prev) => ({ ...prev, loading: true, error: "" }));
 
+    // DEBUG: Log what's being sent
+    console.log("Submitting:", {
+      identifier: formData.email, // or username if you have that field
+      password: formData.password,
+    });
+
     try {
       const response = await fetch("http://localhost:1337/api/auth/local", {
         method: "POST",
@@ -48,6 +56,7 @@ const LoginPage = () => {
       if (response.ok) {
         localStorage.setItem("jwt", data.jwt);
         console.log("Login successful:", data);
+        router.push("/dashboard");
       } else {
         throw new Error(data.message || "Login failed");
       }
