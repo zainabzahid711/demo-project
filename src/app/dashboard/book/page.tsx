@@ -1,7 +1,7 @@
 // src/app/dashboard/book/page.tsx
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -23,7 +23,7 @@ type JwtPayload = {
   iat?: number;
 };
 
-export default function BookService() {
+function BookServiceContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const serviceId = searchParams.get("service");
@@ -179,5 +179,18 @@ export default function BookService() {
         </button>
       </form>
     </div>
+  );
+}
+
+// The main export wraps the content in Suspense
+export default function BookService() {
+  return (
+    <Suspense
+      fallback={
+        <div className="text-center py-8">Loading service details...</div>
+      }
+    >
+      <BookServiceContent />
+    </Suspense>
   );
 }
