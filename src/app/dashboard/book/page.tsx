@@ -30,6 +30,8 @@ export default function BookService() {
   const [error, setError] = useState<string | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [timeSlots, setTimeSlots] = useState<string[]>([]);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!serviceId) {
