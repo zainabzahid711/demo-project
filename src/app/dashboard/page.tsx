@@ -6,7 +6,7 @@ import WelcomeSection from "@/src/components/dashboard/welcome";
 import ServicesSection from "@/src/components/dashboard/sections/serviceSection";
 import QuickActionsSection from "@/src/components/dashboard/sections/quickSection";
 import LoadingSpinner from "@/src/components/ui/loadingSpinner";
-import { Service, ApiResponse } from "@/src/lib/types/booking";
+import { Service } from "@/src/lib/types/booking";
 import { fetchServices } from "@/src/lib/api/service";
 
 export default function Dashboard() {

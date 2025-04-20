@@ -49,7 +49,7 @@ type BookingDetails = {
 //   return res.json();
 // }
 
-export default async function BookingDetailsPage({
+export default function BookingDetailsPage({
   params,
 }: {
   params: { id: string };

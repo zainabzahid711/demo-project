@@ -19,7 +19,8 @@ type Service = {
 type JwtPayload = {
   id: number;
   // Add other JWT payload properties if needed
-  [key: string]: any;
+  exp?: number;
+  iat?: number;
 };
 
 export default function BookService() {
@@ -30,8 +31,8 @@ export default function BookService() {
   const [error, setError] = useState<string | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [timeSlots, setTimeSlots] = useState<string[]>([]);
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!serviceId) {
@@ -70,7 +71,7 @@ export default function BookService() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!startDate) return;
-    const bookingDateTime = new Date(startDate);
+    // const bookingDateTime = new Date(startDate);
 
     const jwt = localStorage.getItem("jwt");
 
