@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Booking } from "../types/booking";
+import { Booking } from "../lib/types/booking";
 
 export default function useBookings() {
   const [state, setState] = useState<{

@@ -1,13 +1,30 @@
 // types/booking.ts
-export type Service = {
+// src/lib/types/booking.ts
+export interface ServiceAttributes {
+  name: string;
+  duration: number;
+  price: number;
+  description?: string;
+  category?: string;
+}
+
+export interface Service {
   id: number;
-  attributes: {
-    name: string;
-    duration: number;
-    price: number;
-    description?: string;
-  } | null;
-} | null;
+  attributes: ServiceAttributes;
+}
+
+// For API responses
+export interface ApiResponse<T> {
+  data: T;
+  meta?: {
+    pagination?: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}
 
 export type Customer = {
   id: number;
