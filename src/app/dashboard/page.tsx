@@ -7,6 +7,7 @@ import ServicesSection from "@/src/components/dashboard/sections/serviceSection"
 import QuickActionsSection from "@/src/components/dashboard/sections/quickSection";
 import LoadingSpinner from "@/src/components/ui/loadingSpinner";
 import { Service, ApiResponse } from "@/src/lib/types/booking";
+import { fetchServices } from "@/src/lib/api/service";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -26,18 +27,10 @@ export default function Dashboard() {
         }
 
         // Fetch services
-        const response = await fetch("http://localhost:1337/api/services");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        const data = await fetchServices();
+        setServices(data);
 
-        const result: ApiResponse<Service[]> = await response.json();
-
-        if (!result.data) {
-          throw new Error("No data received from API");
-        }
-
-        setServices(result.data);
+        // Error handling remains the same
       } catch (err) {
         console.error("Failed to load services", err);
         setError(
