@@ -1,17 +1,30 @@
 // src/lib/auth.ts
 import { User } from "@/src/lib/types/booking";
 
+const JWT_KEY = "jwt";
+const USER_KEY = "user";
+
 export function isAuthenticated(): boolean {
   return !!localStorage.getItem("jwt");
 }
 
 export function getJWT(): string | null {
-  return localStorage.getItem("jwt");
+  return localStorage.getItem(JWT_KEY);
+}
+
+export function storeAuthData(jwt: string, user: User): void {
+  localStorage.setItem(JWT_KEY, jwt);
+  localStorage.setItem(USER_KEY, JSON.stringify(user));
+}
+
+export function getStoredUser(): User | null {
+  const userData = localStorage.getItem(USER_KEY);
+  return userData ? JSON.parse(userData) : null;
 }
 
 export function logout(): void {
-  localStorage.removeItem("jwt");
-  // Optional: Add redirect or event triggering
+  localStorage.removeItem(JWT_KEY);
+  localStorage.removeItem(USER_KEY);
 }
 
 // New utility for user data
@@ -31,5 +44,10 @@ export async function fetchCurrentUser(): Promise<User> {
     if (response.status === 401) logout();
     throw new Error("Failed to fetch user data");
   }
-  return response.json();
+
+  const user = await response.json();
+  localStorage.setItem(USER_KEY, JSON.stringify(user)); //cashing the user data
+
+  return user;
+  // return response.json();
 }

@@ -9,14 +9,16 @@ import {
   FiHome,
 } from "react-icons/fi";
 import Image from "next/image";
-import { User } from "@/src/lib/types/booking";
 
-interface HeaderProps {
-  user: User | null;
-  onLogout: () => void;
-}
+import { useAuth } from "@/src/contexts/auth-context";
 
-export default function Header({ user, onLogout }: HeaderProps) {
+// interface HeaderProps {
+//   user: User | null;
+//   onLogout: () => void;
+// }
+
+export default function Header() {
+  const { user, logout } = useAuth();
   return (
     <header className="bg-white shadow-sm sticky top-0 z-10">
       <div className="container mx-auto px-4">
@@ -39,7 +41,7 @@ export default function Header({ user, onLogout }: HeaderProps) {
               {user?.avatar ? (
                 <Image
                   src={user.avatar}
-                  alt={user.name}
+                  alt={user.username}
                   width={32}
                   height={32}
                   className="rounded-full"
@@ -50,7 +52,7 @@ export default function Header({ user, onLogout }: HeaderProps) {
                 </div>
               )}
               <span className="text-sm font-medium">
-                {user?.name || "Guest"}
+                {user?.username || "Guest"}
               </span>
             </div>
           </div>
@@ -73,7 +75,7 @@ export default function Header({ user, onLogout }: HeaderProps) {
             <span>My Appointments</span>
           </a>
           <button
-            onClick={onLogout}
+            onClick={logout}
             className="flex items-center gap-1 text-gray-600 hover:text-teal-600 transition-colors ml-auto"
           >
             <FiLogOut className="text-lg" />

@@ -68,7 +68,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header user={user} onLogout={handleLogout} />
+      <Header />
       <main className="container mx-auto px-4 py-8">
         <WelcomeSection />
         <ServicesSection

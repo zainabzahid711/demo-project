@@ -3,10 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/src/contexts/auth-context";
 
 type ApiStatus = "checking" | "available" | "unavailable";
 
 const LoginPage = () => {
+  const { login } = useAuth();
   const router = useRouter();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [status, setStatus] = useState({
@@ -54,11 +56,9 @@ const LoginPage = () => {
 
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem("jwt", data.jwt);
-        console.log("Login successful:", data);
+        //--------getting user data from auth context---------------
+        login(data.jwt, data.user);
 
-        // Store user data in localStorage or context
-        localStorage.setItem("user", JSON.stringify(data.user));
         router.push("/dashboard");
       } else {
         throw new Error(data.message || "Login failed");

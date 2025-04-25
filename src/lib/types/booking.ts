@@ -2,7 +2,7 @@
 
 export interface User {
   id: string;
-  name: string;
+  username: string;
   email: string;
   avatar?: string; // optional
   // Add any other user properties you need
