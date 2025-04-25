@@ -8,8 +8,8 @@ import QuickActionsSection from "@/src/components/dashboard/sections/quickSectio
 import LoadingSpinner from "@/src/components/ui/loadingSpinner";
 import { Service } from "@/src/lib/types/booking";
 import { fetchServices } from "@/src/lib/api/service";
-import { isAuthenticated, logout, fetchCurrentUser } from "@/src/lib/auth";
-import { User } from "@/src/lib/types/booking";
+import { isAuthenticated, fetchCurrentUser } from "@/src/lib/auth";
+// import { User } from "@/src/lib/types/booking";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [services, setServices] = useState<Service[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const checkAuthAndFetchServices = async () => {
@@ -31,13 +31,13 @@ export default function Dashboard() {
         // const jwt = localStorage.getItem("jwt") as string;
 
         // Parallel fetching
-        const [servicesData, userData] = await Promise.all([
+        const [servicesData] = await Promise.all([
           fetchServices(),
           fetchCurrentUser(),
         ]);
 
         setServices(servicesData);
-        setUser(userData);
+        // setUser(userData);
       } catch (err) {
         console.error("Failed to load data", err);
         setError(
@@ -51,10 +51,10 @@ export default function Dashboard() {
     checkAuthAndFetchServices();
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("jwt");
-    router.push("/login");
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem("jwt");
+  //   router.push("/login");
+  // };
 
   if (loading) return <LoadingSpinner fullPage />;
   if (error) return <div className="p-8 text-red-500">{error}</div>;
