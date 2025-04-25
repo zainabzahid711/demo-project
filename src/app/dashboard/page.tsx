@@ -8,6 +8,8 @@ import QuickActionsSection from "@/src/components/dashboard/sections/quickSectio
 import LoadingSpinner from "@/src/components/ui/loadingSpinner";
 import { Service } from "@/src/lib/types/booking";
 import { fetchServices } from "@/src/lib/api/service";
+import { isAuthenticated, logout, fetchCurrentUser } from "@/src/lib/auth";
+import { User } from "@/src/lib/types/booking";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -15,24 +17,29 @@ export default function Dashboard() {
   const [services, setServices] = useState<Service[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const checkAuthAndFetchServices = async () => {
       try {
-        // Auth check
-        const jwt = localStorage.getItem("jwt");
-        if (!jwt) {
+        if (!isAuthenticated()) {
           router.push("/login");
           return;
         }
 
-        // Fetch services
-        const data = await fetchServices();
-        setServices(data);
+        // Get JWT for the user data request
+        // const jwt = localStorage.getItem("jwt") as string;
 
-        // Error handling remains the same
+        // Parallel fetching
+        const [servicesData, userData] = await Promise.all([
+          fetchServices(),
+          fetchCurrentUser(),
+        ]);
+
+        setServices(servicesData);
+        setUser(userData);
       } catch (err) {
-        console.error("Failed to load services", err);
+        console.error("Failed to load data", err);
         setError(
           err instanceof Error ? err.message : "An unknown error occurred"
         );
@@ -61,7 +68,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header onLogout={handleLogout} />
+      <Header user={user} onLogout={handleLogout} />
       <main className="container mx-auto px-4 py-8">
         <WelcomeSection />
         <ServicesSection

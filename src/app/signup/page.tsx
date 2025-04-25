@@ -134,6 +134,11 @@ const SignupPage = () => {
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem("jwt", data.jwt);
+
+        // Store user data in localStorage or context
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        console.log("Signup successful:", data);
         router.push("/dashboard");
         // Redirect or show success message
       } else {

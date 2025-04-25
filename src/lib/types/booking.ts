@@ -1,5 +1,12 @@
-// types/booking.ts
 // src/lib/types/booking.ts
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string; // optional
+  // Add any other user properties you need
+}
 export interface ServiceAttributes {
   name: string;
   duration: number;

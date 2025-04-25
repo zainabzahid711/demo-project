@@ -56,6 +56,9 @@ const LoginPage = () => {
       if (response.ok) {
         localStorage.setItem("jwt", data.jwt);
         console.log("Login successful:", data);
+
+        // Store user data in localStorage or context
+        localStorage.setItem("user", JSON.stringify(data.user));
         router.push("/dashboard");
       } else {
         throw new Error(data.message || "Login failed");
