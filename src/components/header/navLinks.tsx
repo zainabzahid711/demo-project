@@ -1,9 +1,13 @@
 // components/header/NavLinks.tsx
 import Link from "next/link";
 
-export default function NavLinks() {
+interface NavLinksProps {
+  compact?: boolean;
+}
+
+const NavLinks = ({ compact }: NavLinksProps) => {
   return (
-    <nav className="hidden md:flex items-center gap-6">
+    <nav className={`hidden md:flex items-center gap-6`}>
       {[
         { href: "/services", label: "Services" },
         { href: "/gallery", label: "Gallery" },
@@ -21,4 +25,6 @@ export default function NavLinks() {
       ))}
     </nav>
   );
-}
+};
+
+export default NavLinks;

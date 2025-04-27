@@ -1,7 +1,11 @@
 // components/header/AuthButtons.tsx
 import Link from "next/link";
 
-export default function AuthButtons() {
+interface AuthButtonsProps {
+  compact?: boolean;
+}
+
+const AuthButtons = ({ compact }: AuthButtonsProps) => {
   return (
     <div className="flex items-center gap-3">
       <Link
@@ -18,4 +22,6 @@ export default function AuthButtons() {
       </Link>
     </div>
   );
-}
+};
+
+export default AuthButtons;
