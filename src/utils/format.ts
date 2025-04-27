@@ -1,15 +1,19 @@
 // src/utils/format.ts
 import { CurrencyCode } from "@/src/contexts/currencyContext";
-import { useCurrency } from "@/src/contexts/currencyContext";
 
 export const formatCurrency = (
   amount: number,
-  currency: CurrencyCode = "PKR"
+  currency: CurrencyCode,
+  exchangeRate: number
 ): string => {
-  const { convert } = useCurrency(); // Get conversion function
+  let convertedAmount = amount;
 
-  // Convert the amount first
-  const convertedAmount = convert(amount);
+  if (currency === "USD") {
+    convertedAmount = amount / exchangeRate;
+  } else if (currency === "EUR") {
+    convertedAmount = amount / (exchangeRate * 1.14);
+  }
+  // const { convert } = useCurrency(); // Get conversion function
 
   const options: Intl.NumberFormatOptions = {
     style: "currency",

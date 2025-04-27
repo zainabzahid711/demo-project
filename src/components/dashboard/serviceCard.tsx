@@ -13,7 +13,8 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ service }: ServiceCardProps) {
   const [isNavigating, setIsNavigating] = useState(false);
-  const { currency } = useCurrency();
+  const { currency, exchangeRate } = useCurrency();
+  // const price = 1000;
 
   if (!service || !service.attributes) {
     return (
@@ -52,7 +53,7 @@ export default function ServiceCard({ service }: ServiceCardProps) {
           </div>
           <div className="flex items-center gap-2">
             <span className="font-medium text-gray-800">
-              {formatCurrency(price, currency)}
+              {formatCurrency(price, currency, exchangeRate)}
             </span>
           </div>
         </div>

@@ -3,6 +3,14 @@ import { FiDollarSign, FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useCurrency } from "@/src/contexts/currencyContext";
 import { useState, useRef, useEffect } from "react";
 
+const CURRENCIES = [
+  { code: "PKR", symbol: "₨" },
+  { code: "USD", symbol: "$" },
+  { code: "EUR", symbol: "€" },
+] as const;
+
+type CurrencyCode = (typeof CURRENCIES)[number]["code"];
+
 const CurrencySelector = () => {
   const { currency, setCurrency } = useCurrency();
   const [isOpen, setIsOpen] = useState(false);
@@ -25,10 +33,13 @@ const CurrencySelector = () => {
     };
   }, []);
 
-  const handleCurrencyChange = (newCurrency: "USD" | "PKR") => {
+  const handleCurrencyChange = (newCurrency: CurrencyCode) => {
     setCurrency(newCurrency);
-    setIsOpen(false); // Close dropdown after selection
+    setIsOpen(false);
   };
+
+  const currentCurrency =
+    CURRENCIES.find((c) => c.code === currency) || CURRENCIES[0];
 
   return (
     <div className="fixed bottom-6 right-6 z-50" ref={dropdownRef}>
@@ -41,35 +52,27 @@ const CurrencySelector = () => {
         >
           <FiDollarSign className="text-teal-600" />
           <span className="font-medium">
-            {currency === "PKR" ? "₨ PKR" : "$ USD"}
+            {currentCurrency.symbol} {currentCurrency.code}
           </span>
           {isOpen ? <FiChevronUp /> : <FiChevronDown />}
         </button>
 
         {isOpen && (
           <div className="absolute bottom-full right-0 mb-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-            <button
-              onClick={() => handleCurrencyChange("PKR")}
-              className={`w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-2 ${
-                currency === "PKR"
-                  ? "bg-teal-50 text-teal-700"
-                  : "text-gray-700"
-              }`}
-            >
-              <span>₨</span>
-              <span>PKR</span>
-            </button>
-            <button
-              onClick={() => handleCurrencyChange("USD")}
-              className={`w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-2 ${
-                currency === "USD"
-                  ? "bg-teal-50 text-teal-700"
-                  : "text-gray-700"
-              }`}
-            >
-              <span>$</span>
-              <span>USD</span>
-            </button>
+            {CURRENCIES.map(({ code, symbol }) => (
+              <button
+                key={code}
+                onClick={() => handleCurrencyChange(code)}
+                className={`w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-2 ${
+                  currency === code
+                    ? "bg-teal-50 text-teal-700"
+                    : "text-gray-700"
+                }`}
+              >
+                <span>{symbol}</span>
+                <span>{code}</span>
+              </button>
+            ))}
           </div>
         )}
       </div>
