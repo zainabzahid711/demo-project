@@ -5,7 +5,7 @@ interface AuthButtonsProps {
   compact?: boolean;
 }
 
-const AuthButtons = ({ compact }: AuthButtonsProps) => {
+const AuthButtons = ({}: AuthButtonsProps) => {
   return (
     <div className="flex items-center gap-3">
       <Link

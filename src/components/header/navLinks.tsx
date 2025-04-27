@@ -5,7 +5,7 @@ interface NavLinksProps {
   compact?: boolean;
 }
 
-const NavLinks = ({ compact }: NavLinksProps) => {
+const NavLinks = ({}: NavLinksProps) => {
   return (
     <nav className={`hidden md:flex items-center gap-6`}>
       {[

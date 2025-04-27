@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import CarouselControls from "./carousalControls";
 import CarouselSlide from "./carousalSlide";
 import CarouselIndicators from "./carousalIndicators";
