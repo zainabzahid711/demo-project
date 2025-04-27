@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import { FiScissors, FiClock, FiDollarSign } from "react-icons/fi";
+import { FiScissors, FiClock } from "react-icons/fi";
 import Link from "next/link";
 import { Service } from "@/src/lib/types/booking";
 import { formatCurrency } from "@/src/utils/format";
 import LoadingSpinner from "../ui/loadingSpinner";
+import { useCurrency } from "@/src/contexts/currencyContext";
 
 interface ServiceCardProps {
   service: Service;
@@ -12,6 +13,8 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ service }: ServiceCardProps) {
   const [isNavigating, setIsNavigating] = useState(false);
+  const { currency, exchangeRate } = useCurrency();
+  // const price = 1000;
 
   if (!service || !service.attributes) {
     return (
@@ -49,9 +52,8 @@ export default function ServiceCard({ service }: ServiceCardProps) {
             <span>{duration} min</span>
           </div>
           <div className="flex items-center gap-2">
-            <FiDollarSign className="text-gray-400" aria-hidden="true" />
             <span className="font-medium text-gray-800">
-              {formatCurrency(price)}
+              {formatCurrency(price, currency, exchangeRate)}
             </span>
           </div>
         </div>

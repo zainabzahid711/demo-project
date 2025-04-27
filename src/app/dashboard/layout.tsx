@@ -1,4 +1,5 @@
 // src/app/dashboard/layout.tsx
+import { CurrencyProvider } from "@/src/contexts/currencyContext";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -14,5 +15,9 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={`${inter.className} bg-neutral-50`}>{children}</div>;
+  return (
+    <div className={`${inter.className} bg-neutral-50`}>
+      <CurrencyProvider>{children}</CurrencyProvider>
+    </div>
+  );
 }
