@@ -9,6 +9,7 @@ import LoadingSpinner from "@/src/components/ui/loadingSpinner";
 import { Service } from "@/src/lib/types/booking";
 import { fetchServices } from "@/src/lib/api/service";
 import { isAuthenticated, fetchCurrentUser } from "@/src/lib/auth";
+import CurrencySelector from "@/src/components/ui/currencySelector";
 // import { User } from "@/src/lib/types/booking";
 
 export default function Dashboard() {
@@ -77,6 +78,7 @@ export default function Dashboard() {
           onSearchChange={setSearchTerm}
         />
         <QuickActionsSection />
+        <CurrencySelector />
       </main>
     </div>
   );
