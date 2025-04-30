@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Header from "@/src/components/dashboard/header";
+import Header from "@/src/components/header/header";
 import WelcomeSection from "@/src/components/dashboard/welcome";
 import ServicesSection from "@/src/components/dashboard/sections/serviceSection";
 import QuickActionsSection from "@/src/components/dashboard/sections/quickSection";
