@@ -43,14 +43,12 @@ export default function HeroSection() {
           <motion.h2
             variants={itemVariants}
             className="text-4xl sm:text-5xl font-bold mb-4 drop-shadow-lg"
-          >
-            Luxury Salon Experience
-          </motion.h2>
+          ></motion.h2>
           <motion.p
             variants={itemVariants}
             className="text-xl mb-8 drop-shadow-md"
           >
-            Book your perfect look with our expert stylists
+            Relaxed spaces, designed for ease
           </motion.p>
           <motion.div variants={itemVariants}>
             {/* <Link
