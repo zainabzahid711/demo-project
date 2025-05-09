@@ -1,9 +1,12 @@
 // app/page.tsx
 import Header from "../components/header/header";
-import HeroSection from "../components/hero/heroSection";
-import ServicesSection from "../components/services/servicesSec";
+import HeroSection from "../components/landingPage/heroSection";
+import ServicesSection from "../components/landingPage/amenities";
 // import CTASection from "@/components/cta/CTASection";
 import Footer from "../components/footer/footer";
+import RoomShowcase from "../components/landingPage/roomShowCase";
+import TestimonialCarousel from "../components/landingPage/testimonial";
+import LocationMap from "../components/landingPage/locationMap";
 
 export default function Home() {
   return (
@@ -14,6 +17,9 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         {/* <CTASection /> */}
+        <RoomShowcase />
+        <TestimonialCarousel />
+        <LocationMap />
       </main>
 
       <Footer />

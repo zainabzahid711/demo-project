@@ -14,28 +14,36 @@ const Carousel = () => {
   const CAROUSEL_DATA = [
     {
       image:
-        "https://images.unsplash.com/photo-1562322140-8baeececf3df?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
-      title: "Luxury Hair Styling",
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      title: "Luxury Suite Experience",
       description:
-        "Transform your look with our expert color and cutting services",
+        "Indulge in our premium suites with breathtaking views and exquisite interiors",
     },
     {
       image:
-        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-      title: "Professional Makeup Artistry",
-      description: "Red carpet ready makeup for any occasion",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      title: "Personalized Concierge Service",
+      description:
+        "Our dedicated staff ensures every detail of your stay is perfect",
     },
-
     {
       image:
-        "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80",
-      title: "Spa & Relaxation",
-      description: "Rejuvenating treatments for mind and body",
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+      title: "Gourmet Dining Experience",
+      description: "World-class cuisine prepared by our award-winning chefs",
     },
     {
-      image: "https://mooeys.co.uk/wp-content/uploads/2024/03/acrylic-blog.jpg",
-      title: "Nail Artistry",
-      description: "Creative designs and luxury manicures",
+      image:
+        "https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
+      title: "Serene Spa Retreat",
+      description:
+        "Rejuvenate with our luxury spa treatments and wellness programs",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1535827841776-24afc1e255ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1635&q=80",
+      title: "Elegant Event Spaces",
+      description: "Host unforgettable events in our sophisticated venues",
     },
   ];
   const nextSlide = () => {
