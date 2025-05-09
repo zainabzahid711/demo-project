@@ -39,6 +39,7 @@ const nextConfig = {
   },
   // For Strapi image optimization
   images: {
+    domains: ["images.unsplash.com"],
     remotePatterns: [
       {
         protocol: "http",
