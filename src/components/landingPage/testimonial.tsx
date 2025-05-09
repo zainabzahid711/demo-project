@@ -77,7 +77,7 @@ export default function TestimonialCarousel() {
                       ))}
                     </div>
                     <blockquote className="text-lg italic text-slate-700 mb-6">
-                      "{testimonial.quote}"
+                      {testimonial.quote}
                     </blockquote>
                     <div className="text-right">
                       <p className="font-semibold text-slate-800">
