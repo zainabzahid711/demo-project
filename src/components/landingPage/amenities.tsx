@@ -1,5 +1,6 @@
-// components/services/ServicesSection.tsx
+// components/landingPage/amenities
 import { FiKey, FiCoffee, FiWifi, FiMapPin } from "react-icons/fi";
+import Link from "next/link";
 
 const SERVICES = [
   {
@@ -27,7 +28,7 @@ const SERVICES = [
     icon: <FiMapPin size={28} className="text-amber-500" />,
   },
 ];
-export default function ServicesSection() {
+export default function Aminities() {
   return (
     <section className="py-20 bg-slate-50">
       {" "}
@@ -55,9 +56,12 @@ export default function ServicesSection() {
                 {service.title}
               </h3>
               <p className="text-slate-600 mb-5">{service.description}</p>
-              <button className="text-blue-600 hover:text-blue-800 font-medium text-sm hover:underline">
+              <Link
+                href="/amenities"
+                className="text-blue-600 hover:text-blue-800 font-medium text-sm hover:underline"
+              >
                 Learn More →
-              </button>
+              </Link>
             </div>
           ))}
         </div>
