@@ -1,5 +1,5 @@
-// components/rooms/RoomShowcase.tsx
-import { FiStar, FiSquare, FiUsers } from "react-icons/fi";
+// components/landingPage/RoomShowcase.tsx
+import { FiArrowRight } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 // import { Room } from "@/src/lib/types/booking";
@@ -49,10 +49,10 @@ export default function RoomShowcase() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-serif font-bold text-slate-800 mb-3">
-            Our Rooms & Suites
+            Our Signature Spaces
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-            Thoughtfully designed spaces for every need
+            Discover your perfect retreat
           </p>
         </div>
 
@@ -84,29 +84,13 @@ export default function RoomShowcase() {
                 </div>
               </div>
 
-              <div className="p-6 bg-white">
-                <p className="text-slate-600 mb-4">{room.description}</p>
-
-                <div className="flex justify-between text-sm text-slate-500 mb-6">
-                  <div className="flex items-center gap-1">
-                    <FiSquare className="text-amber-500" />
-                    <span>{room.size}m²</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <FiUsers className="text-amber-500" />
-                    <span>{room.capacity} Guests</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <FiStar className="text-amber-500" />
-                    <span>{room.rating}</span>
-                  </div>
-                </div>
-
+              <div className="text-center mt-12">
                 <Link
-                  href={`/rooms`}
-                  className="block w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition-colors duration-300 text-center"
+                  href="/rooms"
+                  className="inline-flex items-center px-6 py-3 border border-slate-300 rounded-full text-slate-700 hover:bg-slate-50 transition-colors"
                 >
-                  View Details
+                  Explore All Rooms
+                  <FiArrowRight className="ml-2" />
                 </Link>
               </div>
             </div>

@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getRooms } from "@/src/lib/api/rooms";
-import RoomCard from "@/src/components/cards/roomCard";
+import RoomCard from "@/src/components/roomsPage/roomCard";
 import { Room } from "@/src/lib/types/booking";
 import LoadingSpinner from "@/src/components/ui/loadingSpinner"; // Import your spinner component
+import Footer from "@/src/components/footer/footer";
+import Header from "@/src/components/header/header";
 
 export default function RoomsPage() {
   const [rooms, setRooms] = useState<Room[]>([]);
@@ -57,23 +59,27 @@ export default function RoomsPage() {
   }
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-serif font-bold text-slate-800 mb-3">
-            Our Rooms & Suites
-          </h2>
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg">
-            Thoughtfully designed spaces for every need
-          </p>
-        </div>
+    <>
+      <Header />
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-serif font-bold text-slate-800 mb-3">
+              Our Collection
+            </h2>
+            <p className="text-slate-600 max-w-2xl mx-auto text-lg">
+              {rooms.length} unique spaces tailored for your comfort
+            </p>
+          </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {rooms.map((room) => (
-            <RoomCard key={room.id} room={room} />
-          ))}
+          <div className="grid md:grid-cols-3 gap-8">
+            {rooms.map((room) => (
+              <RoomCard key={room.id} room={room} variant="listing" />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <Footer />
+    </>
   );
 }
