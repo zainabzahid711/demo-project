@@ -1,20 +1,12 @@
 // components/rooms/RoomShowcase.tsx
 import { FiStar, FiSquare, FiUsers } from "react-icons/fi";
 import Image from "next/image";
+import Link from "next/link";
+// import { Room } from "@/src/lib/types/booking";
 
 const ROOMS = [
   {
-    name: "Deluxe Suite",
-    description: "Spacious retreat with premium amenities and city views",
-    price: 299,
-    size: 45,
-    capacity: 2,
-    rating: 4.8,
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
-    // Photo by João Jesus from Pexels
-  },
-  {
+    id: 1,
     name: "Executive King",
     description: "Sophisticated workspace with ergonomic furnishings",
     price: 349,
@@ -26,6 +18,19 @@ const ROOMS = [
     // Photo by Pixabay from Pexels
   },
   {
+    id: 2,
+    name: "Deluxe Suite",
+    description: "Spacious retreat with premium amenities and city views",
+    price: 299,
+    size: 45,
+    capacity: 2,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+    // Photo by João Jesus from Pexels
+  },
+  {
+    id: 3,
     name: "Presidential Suite",
     description: "Ultimate luxury experience with separate living area",
     price: 599,
@@ -97,9 +102,12 @@ export default function RoomShowcase() {
                   </div>
                 </div>
 
-                <button className="w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition-colors duration-300">
+                <Link
+                  href={`/rooms`}
+                  className="block w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium transition-colors duration-300 text-center"
+                >
                   View Details
-                </button>
+                </Link>
               </div>
             </div>
           ))}
