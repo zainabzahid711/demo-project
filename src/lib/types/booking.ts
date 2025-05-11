@@ -5,9 +5,9 @@ export interface Room {
   attributes: {
     name: string;
     description?: string;
-    pricePerNight: number;
+    price: number;
     size: number;
-    maxOccupancy: number;
+    capacity: number;
     rating: number;
     createdAt: string;
     updatedAt: string;
