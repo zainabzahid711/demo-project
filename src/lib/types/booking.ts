@@ -1,5 +1,39 @@
 // src/lib/types/booking.ts
-
+// src/lib/types/booking.ts
+export interface Room {
+  id: number | string;
+  attributes: {
+    name: string;
+    description?: string;
+    pricePerNight: number;
+    size: number;
+    maxOccupancy: number;
+    rating: number;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    image?: {
+      data?: {
+        attributes: {
+          url: string;
+          alternativeText?: string;
+          width?: number;
+          height?: number;
+        };
+      };
+    };
+    // Add amenities if you have them
+    amenities?: {
+      data: Array<{
+        id: number;
+        attributes: {
+          name: string;
+          icon: string;
+        };
+      }>;
+    };
+  };
+}
 export interface User {
   id: string;
   username: string;
