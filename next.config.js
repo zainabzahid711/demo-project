@@ -47,6 +47,12 @@ const nextConfig = {
         port: "1337",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "wilful-juditha-tilde-2e2e9688.koyeb.app",
+        port: "",
+        pathname: "/uploads/**",
+      },
     ],
   },
   // Environment variables
