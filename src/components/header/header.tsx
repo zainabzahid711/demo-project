@@ -18,15 +18,12 @@ const Header = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Only update state if we're not already processing a scroll event
       if (!ticking.current) {
         window.requestAnimationFrame(() => {
-          // Determine direction and distance scrolled
           const scrollDirection =
             currentScrollY > lastScrollY.current ? "down" : "up";
           const scrollDistance = Math.abs(currentScrollY - lastScrollY.current);
 
-          // Only toggle compact mode if scrolled a significant amount
           if (scrollDistance > 30) {
             setIsCompact(currentScrollY > 80 && scrollDirection === "down");
           }
@@ -44,7 +41,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200 transition-all duration-300 ease-in-out">
+    <header className="sticky top-0 z-50 bg-gradient-to-b from-slate-900/95 to-slate-900/80 backdrop-blur-md border-b border-slate-700 transition-all duration-300 ease-in-out">
       <div className="container mx-auto px-4">
         {/* Main header bar */}
         <div
@@ -55,21 +52,31 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-teal-700 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
-                <FiScissors className="text-white text-xl" />
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-blue-800 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg">
+                <svg
+                  className="w-5 h-5 text-blue-100"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeWidth={1.5}
+                    d="M15 5a3 3 0 013 3v8a3 3 0 01-3 3m4-9V8a4 4 0 00-4-4m-8 8h6m-6-4h6m4 0h2m-2 4h2"
+                  />
+                </svg>
               </div>
               <h1
-                className={`text-xl font-bold text-teal-800 transition-all duration-300 ${
+                className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-blue-600 transition-all duration-300 ${
                   isCompact
                     ? "opacity-0 w-0 overflow-hidden"
                     : "opacity-100 w-auto"
                 }`}
               >
-                BookEase Salon
+                AzureStay
               </h1>
             </Link>
 
-            {/* Always show NavLinks but adjust spacing */}
+            {/* NavLinks */}
             <div
               className={`transition-all duration-300 ${
                 isCompact ? "ml-2" : "ml-6"
@@ -82,9 +89,9 @@ const Header = () => {
           {/* User actions */}
           <div className="flex items-center gap-4">
             {user && (
-              <button className="p-2 text-gray-600 hover:text-teal-600 relative">
+              <button className="p-2 text-slate-300 hover:text-white relative">
                 <FiBell className="text-xl" />
-                <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-rose-500"></span>
               </button>
             )}
 
@@ -99,12 +106,14 @@ const Header = () => {
                     className="rounded-full"
                   />
                 ) : (
-                  <div className="h-8 w-8 rounded-full bg-teal-100 flex items-center justify-center">
-                    <FiUser className="text-teal-600" />
+                  <div className="h-8 w-8 rounded-full bg-slate-700 flex items-center justify-center">
+                    <FiUser className="text-slate-300" />
                   </div>
                 )}
                 {!isCompact && (
-                  <span className="text-sm font-medium">{user.username}</span>
+                  <span className="text-sm font-medium text-slate-100">
+                    {user.username}
+                  </span>
                 )}
               </div>
             ) : (
@@ -118,7 +127,7 @@ const Header = () => {
           <div className="flex justify-end pb-2">
             <button
               onClick={logout}
-              className="flex items-center gap-1 text-gray-600 hover:text-teal-600 transition-colors text-sm"
+              className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors text-sm"
             >
               <FiLogOut className="text-lg" />
               <span>Sign Out</span>
