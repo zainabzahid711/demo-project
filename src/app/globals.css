@@ -25,3 +25,16 @@ body {
     text-wrap: balance;
   }
 }
+/* .rdrMonth {
+  width: 100% !important;
+  min-width: 280px !important; 
+}
+
+.rdrDay {
+  width: 14.28% !important;
+  flex: 1 !important; 
+} */
+.booking-calendar-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+}

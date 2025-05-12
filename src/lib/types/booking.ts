@@ -1,5 +1,11 @@
 // src/lib/types/booking.ts
 // src/lib/types/booking.ts
+
+export interface RoomFeature {
+  id: number;
+  name: string;
+}
+
 export interface Room {
   id: number | string;
   attributes: {
@@ -32,6 +38,7 @@ export interface Room {
         };
       }>;
     };
+    Feature?: RoomFeature[];
   };
 }
 export interface User {

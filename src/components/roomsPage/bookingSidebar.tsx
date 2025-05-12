@@ -1,8 +1,7 @@
-// src/components/room/BookingSidebar.tsx
 "use client";
 
 import { Room } from "@/src/lib/types/booking";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { DateRange, Range, DateRangeProps } from "react-date-range";
 import addDays from "date-fns/addDays";
 import "react-date-range/dist/styles.css";
@@ -18,6 +17,19 @@ export default function BookingSidebar({ room }: { room: Room }) {
   ]);
 
   const [guests, setGuests] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+  const dateRangeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const nights =
     state[0].endDate && state[0].startDate
       ? Math.ceil(
@@ -32,8 +44,6 @@ export default function BookingSidebar({ room }: { room: Room }) {
       : Number(room.attributes.price);
 
   const subtotal = price * nights;
-
-  // const subtotal = room.attributes.price * nights;
   const serviceFee = 25;
   const total = subtotal + serviceFee;
 
@@ -43,32 +53,72 @@ export default function BookingSidebar({ room }: { room: Room }) {
     }
   };
 
+  // Format date for display
+  const formatDate = (date: Date | undefined) => {
+    if (!date) return "";
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
+
   return (
-    <div className="sticky top-6 ">
-      <div className="border border-slate-200 rounded-xl p-6 shadow-sm">
+    <div className="sticky top-6 w-full max-w-md lg:w-[390px]">
+      <div className="border border-slate-200 rounded-xl p-6 shadow-sm bg-white">
         <h3 className="text-xl font-semibold text-slate-800 mb-6">
           Reserve This Room
         </h3>
 
         <div className="space-y-6">
+          {/* Date Selection */}
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">
               Dates
             </label>
-            <DateRange
-              // firstDayOfWeek={1}
-              showMonthAndYearPickers={false}
-              editableDateInputs={true}
-              onChange={handleDateChange}
-              moveRangeOnFirstSelection={false}
-              ranges={state}
-              minDate={new Date()}
-              rangeColors={["#1e293b"]}
-              className="w-full border min-w-[330px] border-slate-300 rounded-lg overflow-hidden"
-            />
+
+            {/* Mobile: Show simplified date display */}
+            {isMobile ? (
+              <div
+                className="w-full border border-slate-300 rounded-lg p-3 text-sm"
+                onClick={() => {
+                  dateRangeRef.current?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
+                {formatDate(state[0].startDate)} -{" "}
+                {formatDate(state[0].endDate)}
+              </div>
+            ) : (
+              <DateRange
+                editableDateInputs={true}
+                onChange={handleDateChange}
+                moveRangeOnFirstSelection={false}
+                ranges={state}
+                direction="horizontal"
+                minDate={new Date()}
+                rangeColors={["#1e293b"]}
+                className="w-full border border-slate-300 rounded-lg overflow-hidden"
+                monthDisplayFormat="MMMM yyyy"
+                showPreview={false}
+              />
+            )}
           </div>
 
-          {/* Rest of the component  */}
+          {/* Calendar for mobile - positioned separately */}
+          {isMobile && (
+            <div ref={dateRangeRef} className="mt-4">
+              <DateRange
+                editableDateInputs={true}
+                onChange={handleDateChange}
+                moveRangeOnFirstSelection={false}
+                ranges={state}
+                direction="vertical"
+                minDate={new Date()}
+                rangeColors={["#1e293b"]}
+                className="w-full border border-slate-300 rounded-lg overflow-hidden"
+                monthDisplayFormat="MMMM yyyy"
+                showPreview={false}
+              />
+            </div>
+          )}
+
+          {/* Guests Selection */}
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">
               Guests
@@ -76,7 +126,7 @@ export default function BookingSidebar({ room }: { room: Room }) {
             <select
               value={guests}
               onChange={(e) => setGuests(Number(e.target.value))}
-              className="w-full border border-slate-300 rounded-lg p-3"
+              className="w-full border border-slate-300 rounded-lg p-3 focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
             >
               {Array.from({ length: room.attributes.capacity }, (_, i) => (
                 <option key={i} value={i + 1}>
@@ -86,11 +136,11 @@ export default function BookingSidebar({ room }: { room: Room }) {
             </select>
           </div>
 
+          {/* Price Breakdown */}
           <div className="space-y-3 pt-4 border-t border-slate-200">
             <div className="flex justify-between">
               <span className="text-slate-600">
-                ${Number(room.attributes.price).toFixed(2)} * {nights} night
-                {nights !== 1 ? "s" : ""}
+                ${price.toFixed(2)} × {nights} night{nights !== 1 ? "s" : ""}
               </span>
               <span className="font-medium">${subtotal.toFixed(2)}</span>
             </div>
@@ -104,8 +154,9 @@ export default function BookingSidebar({ room }: { room: Room }) {
             </div>
           </div>
 
+          {/* Reserve Button */}
           <button
-            className="w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-lg transition-colors font-medium"
+            className="w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-lg transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-800 active:bg-slate-700"
             onClick={() => {
               console.log("Booking details:", {
                 roomId: room.id,

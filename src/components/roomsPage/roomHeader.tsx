@@ -4,8 +4,8 @@ import { Room } from "@/src/lib/types/booking";
 
 export default function RoomHeader({ room }: { room: Room }) {
   return (
-    <div className="relative -mt-16 z-10 mb-12">
-      <div className="bg-white rounded-xl shadow-xl p-8">
+    <div className="relative -mt-16 z-10 mb-12 w-full">
+      <div className="bg-white rounded-xl shadow-2xl p-8 max-w-4xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-6">
           <div>
             <h1 className="text-3xl font-serif font-bold text-slate-800">
