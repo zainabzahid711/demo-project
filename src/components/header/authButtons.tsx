@@ -1,22 +1,18 @@
 // components/header/AuthButtons.tsx
 import Link from "next/link";
 
-interface AuthButtonsProps {
-  compact?: boolean;
-}
-
-const AuthButtons = ({}: AuthButtonsProps) => {
+const AuthButtons = () => {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center space-x-3">
       <Link
         href="/login"
-        className="px-4 py-2 text-slate-200 hover:bg-slate-700 rounded-lg transition-all duration-300 hover:shadow-sm border border-slate-600 hover:border-slate-500"
+        className="px-4 py-2 text-gray-700 font-medium rounded-lg border border-gray-300 hover:border-yellow-500 hover:bg-gray-50 transition-colors"
       >
         Login
       </Link>
       <Link
         href="/signup"
-        className="px-4 py-2 bg-slate-800 hover:bg-slate-600 text-white rounded-lg transition-all duration-300 hover:shadow-md border border-slate-600 hover:border-slate-500"
+        className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-medium rounded-lg shadow-sm transition-colors"
       >
         Sign Up
       </Link>

@@ -14,7 +14,7 @@ const nextConfig = {
     return [
       {
         // Apply these headers to all routes
-        source: "/:path*",
+        source: "/_next/static/(.*)",
         headers: [
           {
             key: "Access-Control-Allow-Origin",
@@ -32,6 +32,10 @@ const nextConfig = {
           {
             key: "Access-Control-Allow-Credentials",
             value: "true",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
