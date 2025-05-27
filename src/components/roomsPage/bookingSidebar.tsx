@@ -6,8 +6,10 @@ import { DateRange, Range, DateRangeProps } from "react-date-range";
 import addDays from "date-fns/addDays";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import BookingModal from "./bookingModal";
 
 export default function BookingSidebar({ room }: { room: Room }) {
+  const [showBookingModal, setShowBookingModal] = useState(false);
   const [state, setState] = useState<Range[]>([
     {
       startDate: new Date(),
@@ -156,20 +158,25 @@ export default function BookingSidebar({ room }: { room: Room }) {
 
           {/* Reserve Button */}
           <button
+            // onClickCapture={()=> setShowBookingModal(true)}
             className="w-full py-3 bg-slate-800 hover:bg-slate-900 text-white rounded-lg transition-colors font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-800 active:bg-slate-700"
-            onClick={() => {
-              console.log("Booking details:", {
-                roomId: room.id,
-                startDate: state[0].startDate,
-                endDate: state[0].endDate,
-                guests,
-                total,
-              });
-            }}
+            onClick={() => setShowBookingModal(true)}
           >
             Reserve Now
           </button>
         </div>
+        {showBookingModal && (
+          <BookingModal
+            room={room}
+            bookingDetails={{
+              startDate: state[0].startDate ?? new Date(),
+              endDate: state[0].endDate ?? addDays(new Date(), 2),
+              guests,
+              total,
+            }}
+            onClose={() => setShowBookingModal(false)}
+          />
+        )}
       </div>
     </div>
   );

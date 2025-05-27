@@ -11,7 +11,7 @@ export interface RoomImage {
 export interface RoomAttributes {
   name: string;
   description: string;
-  price: number;
+  price: number | string;
   size: number;
   capacity: number;
   rating: number;

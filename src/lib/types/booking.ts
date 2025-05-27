@@ -1,5 +1,4 @@
 // src/lib/types/booking.ts
-// src/lib/types/booking.ts
 
 export interface RoomFeature {
   id: number;
@@ -84,17 +83,24 @@ export type Customer = {
   } | null;
 } | null;
 
-export type Booking = {
+export interface Booking {
   id: number;
   attributes: {
-    booking_date: string;
     status: "pending" | "confirmed" | "cancelled";
-    confirmation_code?: string;
-    service: {
-      data: Service;
-    } | null;
-    customer: {
-      data: Customer;
-    } | null;
+    confirmation_code: string;
+    startDate: string | Date;
+    endDate: string | Date;
+    guest: number;
+    totalPrice: number;
+    customer_name: string;
+    customer_email: string;
+    createdAt: string;
+    updatedAt: string;
+    room?: {
+      data: Room;
+    };
+    users_permissions_user?: {
+      data: User;
+    };
   };
-};
+}

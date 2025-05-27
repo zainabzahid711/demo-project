@@ -1,4 +1,7 @@
 // app/rooms/[id]/page.tsx
+"use client";
+
+import { useState, useEffect } from "react";
 import { getRoomById } from "@/src/lib/api/rooms";
 import Footer from "@/src/components/footer/footer";
 import RoomHero from "@/src/components/roomsPage/roomHero";
@@ -6,12 +9,28 @@ import RoomHeader from "@/src/components/roomsPage/roomHeader";
 import RoomDetails from "@/src/components/roomsPage/roomDetails";
 import BookingSidebar from "@/src/components/roomsPage/bookingSidebar";
 
-export default async function RoomDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const room = await getRoomById(params.id);
+import { Room } from "@/src/lib/types/booking";
+export default function RoomDetailPage({ params }: { params: { id: string } }) {
+  const [room, setRoom] = useState<Room | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRoom = async () => {
+      try {
+        const data = await getRoomById(params.id);
+        setRoom(data);
+      } catch (error) {
+        console.error("Error fetching room:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRoom();
+  }, [params.id]);
+
+  if (loading) return <div>Loading...</div>;
+  if (!room) return <div>Room not found</div>;
 
   return (
     <>
