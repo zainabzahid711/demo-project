@@ -26,6 +26,10 @@ export async function POST(req: Request) {
     const data = await strapiResponse.json();
     return NextResponse.json(data);
   } catch (error) {
+    console.error(
+      "API route error:",
+      error instanceof Error ? error.message : error
+    );
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

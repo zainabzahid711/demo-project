@@ -41,8 +41,8 @@ module.exports = {
         debug: { roomId, startDate, endDate }, // For debugging
       };
     } catch (err) {
-      console.error("Strapi controller error:", err);
-      ctx.throw(500, "Error checking availability");
+      console.error("Strapi controller error:", err.message);
+      ctx.throw(500, `"Error checking availability" ${err.message}`);
     }
   },
   async create(ctx) {
@@ -69,7 +69,8 @@ module.exports = {
 
       return booking;
     } catch (err) {
-      ctx.throw(500, "Error creating booking");
+      console.error("Booking creation error:", err.message); // Now using err
+      ctx.throw(500, `Error creating booking: ${err.message}`);
     }
   },
 };
