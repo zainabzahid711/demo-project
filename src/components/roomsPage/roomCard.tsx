@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { FiStar, FiSquare, FiUsers } from "react-icons/fi";
 import Image from "next/image";

@@ -102,5 +102,6 @@ export interface Booking {
     users_permissions_user?: {
       data: User;
     };
+    specialRequests?: string;
   };
 }

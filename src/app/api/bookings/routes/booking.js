@@ -1,4 +1,4 @@
-// src/lib/api/bookings/routes/booking.js
+// src/app/api/bookings/routes/booking.js
 module.exports = {
   routes: [
     {

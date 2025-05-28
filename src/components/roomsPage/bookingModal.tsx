@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FiX } from "react-icons/fi";
 import { Room } from "@/src/lib/types/booking";
 import { formatDate } from "@/src/utils/utils";
+
 type BookingDetails = {
   startDate: Date;
   endDate: Date;
@@ -35,36 +36,44 @@ export default function BookingModal({
     setError(null);
 
     try {
+      // Format dates as YYYY-MM-DD
+      const startDateStr = bookingDetails.startDate.toISOString().split("T")[0];
+      const endDateStr = bookingDetails.endDate.toISOString().split("T")[0];
+
+      // Directly create the booking
       const response = await fetch("/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
         body: JSON.stringify({
-          action: "create",
-          room: room.id,
-          startDate: bookingDetails.startDate.toISOString().split("T"[0]),
-          endDate: bookingDetails.endDate.toISOString().split("T"[0]),
-          bookingData: {
+          data: {
             room: room.id,
-            startDate: bookingDetails.startDate.toISOString().split("T"[0]),
-            endDate: bookingDetails.endDate.toISOString().split("T")[0],
+            startDate: startDateStr,
+            endDate: endDateStr,
             guest: bookingDetails.guests,
             totalPrice: bookingDetails.total,
             customer_name: formData.name,
             customer_email: formData.email,
+            status: "pending", // or "confirmed" if you want
             specialRequests: formData.specialRequests,
           },
         }),
       });
 
+      console.log("raw response", response);
+
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error(await response.text());
+        const text = await response.text();
+        console.log("error response text", text);
+        throw new Error(data.error?.message || "Booking failed");
       }
 
       setSuccess(true);
     } catch (err) {
+      console.error("Booking error:", err);
       setError(err instanceof Error ? err.message : "Booking failed");
     } finally {
       setIsSubmitting(false);
@@ -106,6 +115,7 @@ export default function BookingModal({
 
           <form onSubmit={handleSubmit}>
             <div className="grid md:grid-cols-2 gap-6">
+              {/* Your Information Section (unchanged) */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">Your Information</h3>
                 <div className="space-y-4">
@@ -156,6 +166,7 @@ export default function BookingModal({
                 </div>
               </div>
 
+              {/* Booking Summary Section (unchanged) */}
               <div>
                 <h3 className="text-lg font-semibold mb-4">Booking Summary</h3>
                 <div className="border border-slate-200 rounded-lg p-4">

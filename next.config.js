@@ -61,6 +61,7 @@ const nextConfig = {
   },
   // Environment variables
   env: {
+    STRAPI_URL: process.env.STRAPI_URL,
     NEXT_PUBLIC_STRAPI_URL: process.env.NEXT_PUBLIC_STRAPI_URL,
   },
 };

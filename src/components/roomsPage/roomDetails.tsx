@@ -1,4 +1,5 @@
 // src/components/room/RoomDetails.tsx
+"use client";
 import { FiCheck, FiMapPin } from "react-icons/fi";
 import { Room } from "@/src/lib/types/booking";
 

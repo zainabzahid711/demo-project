@@ -1,11 +1,21 @@
+// src/app/api/bookings/controllers/booking.js
+
 "use strict";
 
 module.exports = {
   async checkAvailability(ctx) {
+    if (ctx.method !== "POST") {
+      return ctx.methodNotAllowed();
+    }
     try {
       const { room, startDate, endDate } = ctx.request.body;
 
-      if (!room || !startDate || !endDate) {
+      console.log("Strapi received:", { room, startDate, endDate });
+
+      // Handle both direct ID and object with ID
+      const roomId = room?.id || room;
+
+      if (!roomId || !startDate || !endDate) {
         return ctx.badRequest("Missing required parameters");
       }
 
@@ -13,7 +23,7 @@ module.exports = {
         "api::booking.booking",
         {
           filters: {
-            room: { id: room },
+            room: roomId,
             $or: [
               {
                 startDate: { $lte: endDate },
@@ -24,12 +34,17 @@ module.exports = {
         }
       );
 
-      return { available: overlappingBookings.length === 0 };
+      console.log("Found overlapping bookings:", overlappingBookings);
+
+      return {
+        available: overlappingBookings.length === 0,
+        debug: { roomId, startDate, endDate }, // For debugging
+      };
     } catch (err) {
+      console.error("Strapi controller error:", err);
       ctx.throw(500, "Error checking availability");
     }
   },
-
   async create(ctx) {
     try {
       const { data } = ctx.request.body;
@@ -43,10 +58,10 @@ module.exports = {
         {
           data: {
             ...data,
-            status: data.status || "pending",
-            confirmation_code:
-              data.confirmation_code ||
-              `BK-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
+            // status: data.status || "pending",
+            // confirmation_code:
+            //   data.confirmation_code ||
+            //   `BK-${Math.random().toString(36).substring(2, 10).toUpperCase()}`,
             publishedAt: new Date(),
           },
         }
