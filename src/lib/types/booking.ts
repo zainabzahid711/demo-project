@@ -83,6 +83,19 @@ export type Customer = {
   } | null;
 } | null;
 
+export type BookingDetails = {
+  startDate: Date;
+  endDate: Date;
+  guests: number;
+  total: number;
+};
+
+export type BookingFormData = {
+  name: string;
+  email: string;
+  specialRequests: string;
+};
+
 export interface Booking {
   id: number;
   attributes: {
