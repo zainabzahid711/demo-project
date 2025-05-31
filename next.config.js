@@ -14,7 +14,7 @@ const nextConfig = {
     return [
       {
         // Apply these headers to all routes
-        source: "/:path*",
+        source: "/_next/static/(.*)",
         headers: [
           {
             key: "Access-Control-Allow-Origin",
@@ -33,6 +33,10 @@ const nextConfig = {
             key: "Access-Control-Allow-Credentials",
             value: "true",
           },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
         ],
       },
     ];
@@ -47,10 +51,17 @@ const nextConfig = {
         port: "1337",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "wilful-juditha-tilde-2e2e9688.koyeb.app",
+        port: "",
+        pathname: "/uploads/**",
+      },
     ],
   },
   // Environment variables
   env: {
+    STRAPI_URL: process.env.STRAPI_URL,
     NEXT_PUBLIC_STRAPI_URL: process.env.NEXT_PUBLIC_STRAPI_URL,
   },
 };

@@ -2,21 +2,19 @@ import { Booking } from "@/src/lib/types/booking";
 import Link from "next/link";
 
 export default function BookingCard({ booking }: { booking: Booking }) {
-  const serviceName =
-    booking.attributes.service?.data?.attributes?.name ||
-    "No service specified";
-  const bookingDate = booking.attributes.booking_date
-    ? new Date(booking.attributes.booking_date).toLocaleString()
+  const bookingDate = booking.attributes.startDate // Using startDate instead of booking_date
+    ? new Date(booking.attributes.startDate).toLocaleString()
     : "No date specified";
 
   return (
     <div className="p-4 border rounded-lg hover:shadow-md transition">
       <div className="flex justify-between items-start">
         <div>
-          <h3 className="font-medium">{serviceName}</h3>
+          <h3 className="font-medium">
+            {booking.attributes.room?.data?.attributes?.name ||
+              "No room specified"}
+          </h3>
           <p className="text-gray-600">{bookingDate}</p>
-          {/* <StatusBadge status={booking.attributes.status} /> */}
-
           {booking.attributes.confirmation_code && (
             <p className="text-sm text-teal-600">
               Code: {booking.attributes.confirmation_code}

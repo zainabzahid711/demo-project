@@ -11,6 +11,12 @@ export function isAuthenticated(): boolean {
 export function getJWT(): string | null {
   return localStorage.getItem(JWT_KEY);
 }
+export async function checkEmailExists(email: string): Promise<boolean> {
+  const response = await fetch(
+    `/api/users/check-email?email=${encodeURIComponent(email)}`
+  );
+  return response.ok;
+}
 
 export function storeAuthData(jwt: string, user: User): void {
   localStorage.setItem(JWT_KEY, jwt);
