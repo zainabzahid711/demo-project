@@ -29,8 +29,8 @@ export default function BookingModal({
   const [success, setSuccess] = useState(false);
   // const [isGuestBooking, setIsGuestBooking] = useState(true);
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
-  const [existingUser, setExistingUser] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // const [existingUser, setExistingUser] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const checkUserExists = async (email: string) => {
     try {
@@ -108,14 +108,13 @@ export default function BookingModal({
   if (showAuthPrompt) {
     return (
       <AuthPrompt
-        existingUser={existingUser}
+        existingUser={true}
         email={formData.email}
         onContinueAsGuest={() => {
           // setIsGuestBooking(true);
           setShowAuthPrompt(false);
         }}
         onAuthSuccess={() => {
-          setIsAuthenticated(true);
           setShowAuthPrompt(false);
           // setIsGuestBooking(false);
         }}
