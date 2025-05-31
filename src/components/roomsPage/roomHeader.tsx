@@ -2,7 +2,7 @@
 "use client";
 import { FiStar, FiSquare, FiUsers } from "react-icons/fi";
 import { Room } from "@/src/lib/types/booking";
-import BookingModal from "./bookingModal";
+import BookingModal from "../bookings/bookingModal";
 import { useState } from "react";
 
 export default function RoomHeader({ room }: { room: Room }) {

@@ -6,7 +6,7 @@ import { DateRange, Range, DateRangeProps } from "react-date-range";
 import addDays from "date-fns/addDays";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import BookingModal from "./bookingModal";
+import BookingModal from "../bookings/bookingModal";
 
 export default function BookingSidebar({ room }: { room: Room }) {
   const [showBookingModal, setShowBookingModal] = useState(false);
