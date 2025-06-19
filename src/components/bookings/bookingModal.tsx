@@ -69,9 +69,12 @@ export default function BookingModal({
       const startDateStr = bookingDetails.startDate.toISOString().split("T")[0];
       const endDateStr = bookingDetails.endDate.toISOString().split("T")[0];
 
-      const response = await fetch("/api/bookings", {
+      const response = await fetch("http://localhost:1337/api/bookings", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+        },
         body: JSON.stringify({
           data: {
             room: room.id,
