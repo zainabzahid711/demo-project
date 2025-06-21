@@ -84,7 +84,7 @@ export default function BookingModal({
             totalPrice: bookingDetails.total,
             customer_name: formData.name,
             customer_email: formData.email,
-            status: "pending",
+            status: "",
             specialRequests: formData.specialRequests,
           },
         }),
