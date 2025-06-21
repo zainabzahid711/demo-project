@@ -15,11 +15,11 @@ export default function useBookings() {
   const refresh = async () => {
     try {
       setState((prev) => ({ ...prev, loading: true }));
-      const jwt = localStorage.getItem("jwt");
+      // const jwt = localStorage.getItem("jwt");
 
       const res = await fetch(`http://localhost:1337/api/bookings`, {
         headers: {
-          Authorization: `Bearer ${jwt}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           "Content-Type": "application/json",
         },
         cache: "no-store",
