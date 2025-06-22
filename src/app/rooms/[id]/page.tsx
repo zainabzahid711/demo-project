@@ -10,6 +10,7 @@ import RoomDetails from "@/src/components/roomsPage/roomDetails";
 import BookingSidebar from "@/src/components/roomsPage/bookingSidebar";
 
 import { Room } from "@/src/lib/types/booking";
+import PeakDates from "@/src/components/roomsPage/peakDates";
 export default function RoomDetailPage({ params }: { params: { id: string } }) {
   const [room, setRoom] = useState<Room | null>(null);
   const [loading, setLoading] = useState(true);
@@ -49,6 +50,7 @@ export default function RoomDetailPage({ params }: { params: { id: string } }) {
               <BookingSidebar room={room} />
             </div>
           </div>
+          <PeakDates roomId={params.id} />
         </div>
       </main>
 
