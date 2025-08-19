@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "develop": "strapi develop",
     "build": "next build",
     "build:strapi": "cd demo-strapi && npm run build",
@@ -28,8 +28,8 @@
   "devDependencies": {
     "@alloc/quick-lru": "^5.2.0",
     "@eslint/eslintrc": "^3.3.1",
-    "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/node": "20.19.11",
+    "@types/react": "18.3.23",
     "@types/react-date-range": "^1.4.10",
     "@types/react-dom": "^18",
     "@types/sharp": "^0.31.1",
@@ -39,7 +39,7 @@
     "ignore-loader": "^0.1.2",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5.8.2",
+    "typescript": "5.9.2",
     "webpack": "^5.98.0"
   },
   "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
