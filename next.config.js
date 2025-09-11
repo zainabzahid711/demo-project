@@ -8,6 +8,7 @@ const nextConfig = {
     });
     return config;
   },
+  output: "standalone",
 
   // Add these new configurations:
   async headers() {
